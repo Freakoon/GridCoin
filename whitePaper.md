@@ -1,75 +1,103 @@
-# Introduction: A Novel Architecture for Blockchain
+# Layered Grid-based Blockchain Network
 
-Current blockchain networks, despite their revolutionary nature, face fundamental challenges including high energy consumption, slow transaction speeds, and limited scalability. Bitcoin, as the first and most widely known blockchain, relies on a scattered, competitive architecture that leads to immense energy waste and transaction delays.
-
-This white paper introduces a new blockchain architecture called the **"Grid-based Blockchain Network."** By systematically organizing network nodes and blocks, this design seeks to simultaneously achieve the core tenets of blockchain technology: security, speed, and decentralization.
-
----
-
-## 1. Network Architecture: The Grid Structure
-
-Unlike the scattered networks of today, our proposed architecture organizes network nodes into a layered grid of columns and rows. This structured layout optimizes node communication and facilitates a collaborative approach to computational problem-solving.
-
-### A) In-Row Transaction Validation
-Each row in the grid functions as a **"validation team."** When a transaction is initiated within a specific row, only the nodes in that row are assigned the task of its validation.  
-Key advantages:
-
-- **Increased Speed:** The validation problem is divided among multiple miners and solved collaboratively, significantly reducing the time required for confirmation.  
-- **Reduced Energy Consumption:** The computational load is distributed in a parallel fashion, preventing the energy waste associated with a single-winner race.  
-- **Fair Work Distribution:** The system efficiently assigns tasks starting with the first miner in the row, ensuring all participating miners contribute to the validation process.  
-
-### B) Inter-Row Transaction Validation
-When a transaction is sent from one row to another (e.g., from top to bottom or across columns), **"helper miners"** are intelligently selected along the path to participate in its validation.  
-Mechanism highlights:
-
-- Helper miners can move vertically or diagonally to assist.  
-- They are chosen from idle or closest available nodes.  
-- This ensures all nodes in the network remain active and contribute to its efficiency.  
+I once saw a picture of Bitcoin nodes connected randomly and scattered across the network.  
+This made me think: *what if instead of being scattered, the nodes were organized in layers, like rows and columns?*
 
 ---
 
-## 2. Block Structure: Dual-Chained Blocks
+## 1. Transaction Validation Inside Rows
+Each row, if it sends a transaction to itself, will have the validation done by the people (miners) in that same row.  
+The process starts from the first miner in that row, who does part of the mining and validation.  
+Then the next miner (for example, the one in the 5th column) continues the task, and so on, until the last miner in the row completes it.  
 
-Blocks in this network, unlike the linear chain of Bitcoin, are organized in a grid with **(x,y) coordinates.** Each block possesses two hashes that link it to two previous blocks:
-
-- **Vertical Chain Hash:** The hash of the block directly above it in the same column.  
-- **Horizontal Chain Hash:** The hash of the block immediately behind it in the same row.  
-
-🔒 **Security Advantage:** To tamper with a block, an attacker must recalculate two different chains simultaneously — exponentially increasing difficulty.  
-This structure is analogous to a building where each brick (block) connects both downward and sideways, forming a robust and stable structure.  
-
----
-
-## 3. Reward Mechanism and Economic Model
-
-In this network, miners' rewards are sourced exclusively from **transaction fees** (not coin creation).  
-Key aspects:
-
-- **Reward Distribution:** Based on contribution level and number of collaborating miners in a row.  
-- **Helper Miner Compensation:** Idle miners assisting in inter-row validation receive a portion of the reward.  
-- **Digital Piggy Bank System:** Fees are accumulated and paid monthly, standardizing payments and rewarding long-term participation.  
+In this way:  
+- All nodes inside a row are connected and work together.  
+- Electricity consumption decreases significantly.  
+- The transaction speed (TPS) becomes much higher.  
+- The mining process works similar to a mining pool, but depends on the number of miners in each row.  
 
 ---
 
-## 4. Solutions to Potential Challenges
+## 2. Helper Miners Between Rows
+Now we have two problems, but I also have solutions.  
+- **Problem 1:** If there are no miners inside a row → the system will ask for help from the rows above. Based on the column number of the sender and receiver, it moves from left to bottom to find miners.  
+These helper miners can move diagonally or linearly and we call them **helper miners** because they assist with validation.  
 
-This architecture incorporates adaptive solutions for common blockchain problems:
+- **Future Development:** We can classify people (miners) based on their "floor" or level — the bottom ones are the oldest, and the top ones are the newest. This allows future development to solve more problems.  
 
-- **Challenge 1: Declining Miner Population** → Auto-adjust puzzle difficulty & rewards for stability.  
-- **Challenge 2: Idle Miners** → Idle miners automatically become helper miners.  
-- **Challenge 3: Network Coordination** → Limit number of columns (e.g., 100). Randomly select "Parent & Mother Nodes" as supervisors, rotating roles continuously.  
-- **Challenge 4: Sybil Attacks** → All miners must pass **KYC verification** to join.  
+- **Cross-row Transactions:** If someone sends money from top to bottom (or between rows/columns), the transaction will pass through miners along the path. It starts from the leftmost available miner and continues until validation is complete.  
+Again, this ensures miners are helping each other from all directions.  
 
 ---
 
-## Conclusion
+## 3. Block Structure in This Algorithm
+Blocks are similar to Bitcoin in being chained, but not linearly.  
+Here, blocks are categorized by **rows and columns**, and each has coordinates **(x, y).**  
 
-The **Grid-based Blockchain Network** offers a groundbreaking approach to the **blockchain trilemma**.  
-By combining:  
+Each block contains two hashes:  
+1. The hash of the block below it in its column.  
+2. The hash of the block behind it in its row.  
 
-- A structured grid architecture  
-- Dual-chained block design  
-- Adaptive challenge-response mechanisms  
+Blocks in the first row and first column are the foundation blocks and have predefined values.  
 
-👉 The system achieves **reduced energy use, faster transactions, and stronger security.**  
-This design has the potential to serve as the **foundation for next-generation blockchain technology.**
+👉 This means each block has **two chains.** If one block is tampered with, it’s like a building collapsing — both height and length are weakened.  
+So, an attacker would have to break **two difficult chains at once,** making attacks far more difficult.  
+
+---
+
+## 4. Reward Mechanism
+Miners receive rewards based on:  
+- The number of miners in a row,  
+- Their specific role in validation.  
+
+If a miner does not participate, they cannot mine.  
+This prevents inflation and ensures fairness.  
+
+Rewards are calculated as the average contribution of all miners in that row.  
+Rewards are **not created coins,** but come only from transaction fees.  
+
+Each miner has a **digital piggy bank,** where fees are gradually collected.  
+At the end of the month, miners receive the accumulated fees — just like in real life.  
+
+**Additional Rule for Helper Miners:**  
+- If an idle miner is assigned as a **helper miner** to assist another miner,  
+  a portion of the transaction reward from the assisted miner is allocated to the helper miner.  
+- This ensures that even previously idle miners receive compensation for their contribution.  
+
+✅ This results in **lower energy consumption, faster transactions, and higher security.**  
+It solves the **blockchain trilemma** without sacrificing decentralization, security, or scalability.  
+
+---
+
+## 5. Possible Problems and Solutions
+
+### Problem 1: Miners leaving the network
+If miners resign and the mining population decreases:  
+- The system automatically lowers puzzle difficulty but also lowers rewards.  
+- This keeps the network stable.  
+- It can also temporarily remove low-activity users to reduce search time for miners (like an emergency alarm).  
+
+### Problem 2: Idle Miners
+Since the system assigns tasks from left to right, some miners may not receive work.  
+In this case:  
+- They automatically become helper miners.  
+- Idle miners can also self-register as "helpers" so system resources are not wasted.  
+
+### Problem 3: Coordination of Nodes and Blocks
+We can set a column limit (e.g., 100 columns) to make coordination more manageable.  
+
+### Problem 4: Parent and Mother Nodes
+We can create **one "mother node" and one "father node"** across the network.  
+These act as supervisors, ensuring miners start tasks correctly and maintain coordination.  
+
+### Problem 5: Accumulation Attack
+To prevent the control of rows and unnecessary energy usage:  
+- Every miner must pass an **identity verification (KYC)** before joining the system.  
+This increases security.  
+
+### Problem 6: Attacks on Parent/Mother Nodes
+- Nodes are constantly changing (increasing or decreasing).  
+- Parent and mother nodes also rotate continuously.  
+- This makes it much harder for attackers to target them.  
+
+---
